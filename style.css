@@ -16,9 +16,27 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
+    padding: 12px;
 }
 
 #display {
     display: flex;
     gap: 15px;
+    justify-content: center;
+    padding: 15px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+ul {
+    display: flex;
+    gap: 15px;
+}
+
+li {
+    list-style: none;
 }

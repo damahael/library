@@ -6,11 +6,11 @@ function Book(title, author, pages, read) {
 }
 
 const display = document.querySelector("#display");
-const addButton = document.querySelector('.add-button');
+const addButton = document.querySelector(".add-button");
 
 Book.prototype.toggle = function () {
   this.read = !this.read;
-}
+};
 
 Book.prototype.createCard = function () {
   const card = document.createElement("div");
@@ -36,12 +36,12 @@ Book.prototype.createCard = function () {
   removeButton.textContent = "Remove";
   card.appendChild(removeButton);
 
-  bookRead.addEventListener('click', () => {
+  bookRead.addEventListener("click", () => {
     this.toggle();
     displayLibrary();
   });
 
-  removeButton.addEventListener('click', () => {
+  removeButton.addEventListener("click", () => {
     const index = myLibrary.indexOf(this);
     if (index > -1) {
       myLibrary.splice(index, 1);
@@ -58,18 +58,29 @@ const macbeth = new Book("Macbeth", "William Shakespeare", 100, true);
 myLibrary.push(macbeth);
 
 function addBookToLibrary() {
-  const title = prompt("Title");
-  const author = prompt("Author");
-  const pages = prompt("Pages");
-  const read = prompt("Read");
+  const titleInput = document.querySelector("#title");
+  const authorInput = document.querySelector("#author");
+  const pagesInput = document.querySelector("#pages");
+  const readInput = document.querySelector("#read");
+
+  const title = titleInput.value;
+  const author = authorInput.value;
+  const pages = pagesInput.value;
+  const read = readInput.value === 'on' ? 'Read' : 'Not Read' ;
+
 
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
   displayLibrary();
+
+  const allInputs = document.querySelectorAll('input')
+  allInputs.forEach((input) => {
+    input.value = ''
+  })
 }
 
 function displayLibrary() {
-  display.innerHTML = '';
+  display.innerHTML = "";
   myLibrary.forEach((book) => {
     book.createCard();
   });
@@ -77,4 +88,7 @@ function displayLibrary() {
 
 displayLibrary();
 
-addButton.addEventListener("click", addBookToLibrary);
+addButton.addEventListener("click", (e) => {
+  addBookToLibrary();
+  e.preventDefault();
+});
