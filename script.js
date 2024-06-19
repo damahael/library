@@ -1,7 +1,7 @@
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.pages = pages + " " + "pages";
   this.read = read;
 }
 
@@ -9,7 +9,7 @@ const display = document.querySelector("#display");
 const addButton = document.querySelector(".add-button");
 
 Book.prototype.toggle = function () {
-  this.read = !this.read;
+  this.read === 'Read' ? this.read = 'Not Read' : this.read = 'Read'
 };
 
 Book.prototype.createCard = function () {
@@ -33,6 +33,7 @@ Book.prototype.createCard = function () {
   card.appendChild(bookRead);
 
   const removeButton = document.createElement("button");
+  removeButton.classList.add('remove-button')
   removeButton.textContent = "Remove";
   card.appendChild(removeButton);
 
@@ -54,20 +55,16 @@ Book.prototype.createCard = function () {
 
 const myLibrary = [];
 
-const macbeth = new Book("Macbeth", "William Shakespeare", 100, true);
+const macbeth = new Book("Macbeth", "William Shakespeare", 100, 'Read');
 myLibrary.push(macbeth);
 
 function addBookToLibrary() {
-  const titleInput = document.querySelector("#title");
-  const authorInput = document.querySelector("#author");
-  const pagesInput = document.querySelector("#pages");
   const readInput = document.querySelector("#read");
 
-  const title = titleInput.value;
-  const author = authorInput.value;
-  const pages = pagesInput.value;
-  const read = readInput.value === 'on' ? 'Read' : 'Not Read' ;
-
+  const title = document.querySelector("#title").value;
+  const author = document.querySelector("#author").value;
+  const pages = document.querySelector("#pages").value
+  const read = readInput.checked ? 'Read' : 'Not Read';
 
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
@@ -77,6 +74,8 @@ function addBookToLibrary() {
   allInputs.forEach((input) => {
     input.value = ''
   })
+
+  readInput.checked = false;
 }
 
 function displayLibrary() {
