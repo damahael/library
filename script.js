@@ -7,9 +7,10 @@ function Book(title, author, pages, read) {
 
 const display = document.querySelector("#display");
 const addButton = document.querySelector(".add-button");
+const form = document.querySelector("#bookForm");
 
 Book.prototype.toggle = function () {
-  this.read === 'Read' ? this.read = 'Not Read' : this.read = 'Read'
+  this.read === "Read" ? (this.read = "Not Read") : (this.read = "Read");
 };
 
 Book.prototype.createCard = function () {
@@ -30,10 +31,11 @@ Book.prototype.createCard = function () {
 
   const bookRead = document.createElement("p");
   bookRead.textContent = this.read;
+  bookRead.classList.add("read");
   card.appendChild(bookRead);
 
   const removeButton = document.createElement("button");
-  removeButton.classList.add('remove-button')
+  removeButton.classList.add("remove-button");
   removeButton.textContent = "Remove";
   card.appendChild(removeButton);
 
@@ -55,7 +57,7 @@ Book.prototype.createCard = function () {
 
 const myLibrary = [];
 
-const macbeth = new Book("Macbeth", "William Shakespeare", 100, 'Read');
+const macbeth = new Book("Macbeth", "William Shakespeare", 100, "Read");
 myLibrary.push(macbeth);
 
 function addBookToLibrary() {
@@ -63,17 +65,20 @@ function addBookToLibrary() {
 
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
-  const pages = document.querySelector("#pages").value
-  const read = readInput.checked ? 'Read' : 'Not Read';
+  const pages = document.querySelector("#pages").value;
+  const read = readInput.checked ? "Read" : "Not Read";
 
-  const book = new Book(title, author, pages, read);
-  myLibrary.push(book);
-  displayLibrary();
+  const allInputs = document.querySelectorAll("input");
 
-  const allInputs = document.querySelectorAll('input')
+  if (title !== "" && author !== "" && pages !== "") {
+    const book = new Book(title, author, pages, read);
+    myLibrary.push(book);
+    displayLibrary();
+  }
+
   allInputs.forEach((input) => {
-    input.value = ''
-  })
+    input.value = "";
+  });
 
   readInput.checked = false;
 }
@@ -87,7 +92,9 @@ function displayLibrary() {
 
 displayLibrary();
 
-addButton.addEventListener("click", (e) => {
-  addBookToLibrary();
+form.addEventListener("submit", (e) => {
   e.preventDefault();
+  if (form.checkValidity()) {
+    addBookToLibrary();
+  }
 });
