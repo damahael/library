@@ -9,8 +9,16 @@ const display = document.querySelector("#display");
 const addButton = document.querySelector(".add-button");
 const form = document.querySelector("#bookForm");
 
-Book.prototype.toggle = function () {
-  this.read === "Read" ? (this.read = "Not Read") : (this.read = "Read");
+Book.prototype.toggle = function (element) {
+  if (this.read === 'Not Read') {
+    this.read = "Read"
+      element.style.color = 'green'
+  } else {
+    this.read = "Not Read"
+    element.style.color = 'red'
+  }
+
+  element.textContent = this.read
 };
 
 Book.prototype.createCard = function () {
@@ -31,6 +39,7 @@ Book.prototype.createCard = function () {
 
   const bookRead = document.createElement("p");
   bookRead.textContent = this.read;
+  this.read === "Read" ? (bookRead.style.color = 'green') : (bookRead.style.color = 'red')
   bookRead.classList.add("read");
   card.appendChild(bookRead);
 
@@ -40,8 +49,7 @@ Book.prototype.createCard = function () {
   card.appendChild(removeButton);
 
   bookRead.addEventListener("click", () => {
-    this.toggle();
-    displayLibrary();
+    this.toggle(bookRead);
   });
 
   removeButton.addEventListener("click", () => {
