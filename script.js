@@ -6,7 +6,6 @@ function Book(title, author, pages, read) {
 }
 
 const display = document.querySelector("#display");
-const addButton = document.querySelector(".add-button");
 const form = document.querySelector("#bookForm");
 
 Book.prototype.toggle = function (element) {
