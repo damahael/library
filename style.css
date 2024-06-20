@@ -86,7 +86,7 @@ input:focus {
     border-bottom: 1px solid blue;
 }
 
-h1 {
+.card h1 {
     text-align: center;
     font-size: 1.2rem;
 }
