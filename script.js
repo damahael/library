@@ -1,66 +1,68 @@
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages + " " + "pages";
-  this.read = read;
+class Book {
+  constructor (title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages + " " + "pages";
+    this.read = read;
+  }
+
+  toggle (element) {
+    if (this.read === 'Not Read') {
+      this.read = "Read"
+        element.style.color = 'green'
+    } else {
+      this.read = "Not Read"
+      element.style.color = 'red'
+    }
+  
+    element.textContent = this.read
+  }
+
+  createCard () {
+    const card = document.createElement("div");
+    card.classList.add("card");
+  
+    const bookTitle = document.createElement("h1");
+    bookTitle.textContent = this.title;
+    card.appendChild(bookTitle);
+  
+    const bookAuthor = document.createElement("h2");
+    bookAuthor.textContent = this.author;
+    card.appendChild(bookAuthor);
+  
+    const bookPages = document.createElement("p");
+    bookPages.textContent = this.pages;
+    card.appendChild(bookPages);
+  
+    const bookRead = document.createElement("p");
+    bookRead.textContent = this.read;
+    this.read === "Read" ? (bookRead.style.color = 'green') : (bookRead.style.color = 'red')
+    bookRead.classList.add("read");
+    card.appendChild(bookRead);
+  
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("remove-button");
+    removeButton.textContent = "Remove";
+    card.appendChild(removeButton);
+  
+    bookRead.addEventListener("click", () => {
+      this.toggle(bookRead);
+    });
+  
+    removeButton.addEventListener("click", () => {
+      const index = myLibrary.indexOf(this);
+      if (index > -1) {
+        myLibrary.splice(index, 1);
+        displayLibrary();
+      }
+    });
+  
+    display.appendChild(card);
+  }
 }
 
 const display = document.querySelector("#display");
 const form = document.querySelector("#bookForm");
-
-Book.prototype.toggle = function (element) {
-  if (this.read === 'Not Read') {
-    this.read = "Read"
-      element.style.color = 'green'
-  } else {
-    this.read = "Not Read"
-    element.style.color = 'red'
-  }
-
-  element.textContent = this.read
-};
-
-Book.prototype.createCard = function () {
-  const card = document.createElement("div");
-  card.classList.add("card");
-
-  const bookTitle = document.createElement("h1");
-  bookTitle.textContent = this.title;
-  card.appendChild(bookTitle);
-
-  const bookAuthor = document.createElement("h2");
-  bookAuthor.textContent = this.author;
-  card.appendChild(bookAuthor);
-
-  const bookPages = document.createElement("p");
-  bookPages.textContent = this.pages;
-  card.appendChild(bookPages);
-
-  const bookRead = document.createElement("p");
-  bookRead.textContent = this.read;
-  this.read === "Read" ? (bookRead.style.color = 'green') : (bookRead.style.color = 'red')
-  bookRead.classList.add("read");
-  card.appendChild(bookRead);
-
-  const removeButton = document.createElement("button");
-  removeButton.classList.add("remove-button");
-  removeButton.textContent = "Remove";
-  card.appendChild(removeButton);
-
-  bookRead.addEventListener("click", () => {
-    this.toggle(bookRead);
-  });
-
-  removeButton.addEventListener("click", () => {
-    const index = myLibrary.indexOf(this);
-    if (index > -1) {
-      myLibrary.splice(index, 1);
-      displayLibrary();
-    }
-  });
-
-  display.appendChild(card);
-};
 
 const myLibrary = [];
 
